@@ -1,17 +1,20 @@
-// The Daily Compass — entry program.
-//
-// Copies the bundled poster (assets/poster.png, next to this program) to
-// <output>/entry.png, where <output> is process.env.MAKEFUN_OUTPUT_DIR
-// when set and /output otherwise. Deterministic: no network access, no
-// clock, no randomness — the same bytes come out on every run.
+// Copies assets/poster.png to <output>/entry.png and verifies the copy matches the source byte size.
+import * as fs from "node:fs";
+import * as path from "node:path";
 
-import { copyFileSync, mkdirSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+const programDir = path.dirname(path.resolve(process.argv[1]));
+const sourcePath = path.join(programDir, "assets", "poster.png");
+const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const destinationPath = path.join(outputDir, "entry.png");
 
-const outputDir: string = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-const programDir: string = resolve(dirname(process.argv[1] ?? "."));
-const source: string = join(programDir, "assets", "poster.png");
-const target: string = join(outputDir, "entry.png");
+fs.mkdirSync(outputDir, { recursive: true });
+fs.copyFileSync(sourcePath, destinationPath);
 
-mkdirSync(outputDir, { recursive: true });
-copyFileSync(source, target);
+const sourceSize = fs.statSync(sourcePath).size;
+const destinationSize = fs.statSync(destinationPath).size;
+
+if (destinationSize !== sourceSize) {
+  throw new Error(
+    `Copy integrity check failed: source is ${sourceSize} bytes but destination is ${destinationSize} bytes (${destinationPath})`
+  );
+}
