@@ -1,5 +1,9 @@
 # The Daily Compass — Monday 23 November 2026
 
+[![make.fun · news-image-20261123](https://make.fun/badge/news-image-20261123.svg)](https://make.fun/bounty/news-image-20261123)
+[![rank](https://make.fun/badge/news-image-20261123/aizen99829/entry-news-image-20261123/rank.svg)](https://make.fun/bounty/news-image-20261123/leaderboard)
+[![reward](https://make.fun/badge/news-image-20261123/aizen99829/entry-news-image-20261123/reward.svg)](https://make.fun/bounty/news-image-20261123)
+
 A one-image summary of the world's news of Monday 23 November 2026,
 drawn as a 1024×1024 PNG poster.
 
